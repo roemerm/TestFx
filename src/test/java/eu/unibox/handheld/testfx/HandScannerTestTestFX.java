@@ -2,19 +2,13 @@ package eu.unibox.handheld.testfx;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
-import static org.loadui.testfx.GuiTest.find;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.GeneralMatchers.baseMatcher;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
-import javafx.scene.control.Tab;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import org.hamcrest.Factory;
-import org.hamcrest.Matcher;
 import org.junit.Test;
-import org.testfx.api.annotation.Unstable;
 import org.testfx.framework.junit.ApplicationTest;
 
 import com.sun.jersey.api.client.Client;
@@ -36,10 +30,6 @@ public class HandScannerTestTestFX extends ApplicationTest {
         stage.initOwner(owner);
 
         new MainFx().start(stage);
-        /*if (primaryStage.getStyle().equals(StageStyle.UNDECORATED)) {
-            this.stage = primaryStage;
-            new MainFx().start(primaryStage);
-        }*/
     }
 
     public void stop() {
@@ -49,7 +39,6 @@ public class HandScannerTestTestFX extends ApplicationTest {
     @Test
     public void baptiseDevice() {
         clickOn("#modeButton");
-        sleep(1000);
         verifyThat("#deviceIdText", isVisible());
 
         /*
@@ -64,7 +53,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
 
         clickOn("Baptise");
 
-        TextArea n = (TextArea) find("#messageText");
+        TextArea n = (TextArea) lookup("#messageText").queryFirst();
 
         verifyThat(n.getText(), containsString("Baptising device Dev" + id));
         fingerprint = n.getText();
@@ -97,8 +86,10 @@ public class HandScannerTestTestFX extends ApplicationTest {
     @Test
     public void shouldClickButton() {
         clickOn("#modeButton");
+        clickOn("#exitButton");
     }
 
+    /*
     private static class TabMatchers {
         @Factory
         @Unstable(reason = "is missing apidocs")
@@ -112,4 +103,5 @@ public class HandScannerTestTestFX extends ApplicationTest {
             return baseMatcher("Tab is selected", tab -> !tab.isSelected());
         }
     }
+    */
 }

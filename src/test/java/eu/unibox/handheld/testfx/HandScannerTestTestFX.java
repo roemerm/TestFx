@@ -29,11 +29,14 @@ public class HandScannerTestTestFX extends ApplicationTest {
         stage = new Stage();
         stage.initOwner(owner);
 
-        new MainFx().start(stage);
+        final MainFx app = new MainFx();
+        app.start(stage);
     }
 
+    @Override
     public void stop() {
         stage.close();
+//         closeCurrentWindow();
     }
 
     @Test
@@ -58,10 +61,9 @@ public class HandScannerTestTestFX extends ApplicationTest {
         verifyThat(n.getText(), containsString("Baptising device Dev" + id));
         fingerprint = n.getText();
         fingerprint = fingerprint.substring(fingerprint.lastIndexOf(":") + 2);
-
     }
 
-    @Test
+    //@Test
     public void loginDeviceUser() {
         try {
             baptiseDevice();
@@ -80,13 +82,12 @@ public class HandScannerTestTestFX extends ApplicationTest {
         System.out.println(service.path("deviceuser").path("Usr" + id).path("activate-user").header("user", "glsUser")
                 .header("pwd", "password").get(String.class));
         clickOn("#loginButton");
-
     }
 
     @Test
     public void shouldClickButton() {
         clickOn("#modeButton");
-        clickOn("#exitButton");
+        //        clickOn("#exitButton");
     }
 
     /*

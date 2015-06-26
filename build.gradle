@@ -1,0 +1,16 @@
+defaultTasks 'clean', 'build'
+
+apply plugin: 'java'
+
+repositories {
+   flatDir { dirs "libs" }
+}
+
+dependencies {
+	testCompile fileTree(dir: 'libs/', include: '*.jar')
+}
+
+jar {
+   baseName = 'testfx-tests'
+	version = '0.1.0'
+}

@@ -19,6 +19,7 @@ Thumbs.db
 *.ilk
 *.log
 [Bb]in
+[Bb]uild
 [Dd]ebug*/
 *.lib
 *.sbr

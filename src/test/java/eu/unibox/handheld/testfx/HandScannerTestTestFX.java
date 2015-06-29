@@ -3,8 +3,6 @@ package eu.unibox.handheld.testfx;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
-import static org.testfx.matcher.base.NodeMatchers.isDisabled;
-import static org.testfx.matcher.base.NodeMatchers.isInvisible;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
@@ -51,8 +49,6 @@ public class HandScannerTestTestFX extends ApplicationTest {
         clickOn("#modeButton");
         verifyThat("#deviceIdText", isVisible());
 
-        verifyThat("#loginTab", isDisabled());
-
         clickOn("#deviceIdText").write("Dev" + id);
         clickOn("#deviceNameText").write("Name" + id);
 
@@ -65,7 +61,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
         fingerprint = fingerprint.substring(fingerprint.lastIndexOf(":") + 2);
     }
 
-    //@Test
+    @Test
     public void loginDeviceUser() {
         try {
             baptiseDevice();
@@ -73,7 +69,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
         } catch (AssertionError e) {
         }
         assertNotNull("Device not baptised, fingerprint is null", fingerprint);
-        verifyThat("#userLoginText", isInvisible());
+        verifyThat("#userLoginText", isVisible());
         clickOn("#userLoginText").write("Usr" + id);
         clickOn("#userPasswordText").write("password");
 
@@ -84,12 +80,6 @@ public class HandScannerTestTestFX extends ApplicationTest {
         System.out.println(service.path("deviceuser").path("Usr" + id).path("activate-user").header("user", "glsUser")
                 .header("pwd", "password").get(String.class));
         clickOn("#loginButton");
-    }
-
-    //@Test
-    public void shouldClickButton() {
-        clickOn("#modeButton");
-        //        clickOn("#exitButton");
     }
 
 }

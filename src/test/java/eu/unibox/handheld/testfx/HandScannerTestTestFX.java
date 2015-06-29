@@ -36,14 +36,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
         stage.initOwner(owner);
         stage.setAlwaysOnTop(true);
 
-        final MainFx app = new MainFx();
-        app.start(stage);
-    }
-
-    @Override
-    public void stop() {
-        stage.close();
-//         closeCurrentWindow();
+        new MainFx().start(stage);
     }
 
     @Test

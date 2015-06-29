@@ -3,12 +3,16 @@ package eu.unibox.handheld.testfx;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isDisabled;
+import static org.testfx.matcher.base.NodeMatchers.isInvisible;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TestRule;
 import org.testfx.framework.junit.ApplicationTest;
 
 import com.sun.jersey.api.client.Client;
@@ -22,12 +26,17 @@ public class HandScannerTestTestFX extends ApplicationTest {
     private final long id = System.currentTimeMillis();
     private String fingerprint;
 
+    @Rule
+    public TestRule captureScreenshot = new CaptureScreenshot();
+
     @Override
     public void start(final Stage primaryStage) throws Exception {
         host = System.getProperty("host", "localhost");
         Window owner = primaryStage.getOwner();
+
         stage = new Stage();
         stage.initOwner(owner);
+        stage.setAlwaysOnTop(true);
 
         final MainFx app = new MainFx();
         app.start(stage);
@@ -44,12 +53,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
         clickOn("#modeButton");
         verifyThat("#deviceIdText", isVisible());
 
-        /*
-        Tab t = (Tab) find("#loginTab");
-        verifyThat((Tab) find("#loginTab"), TabMatchers.isSelected());
-        verifyThat((Tab) find("#deliveryTab"), TabMatchers.isUnselected());
-        verifyThat((Tab) find("#baptiseTab"), TabMatchers.isUnselected());*
-        */
+        verifyThat("#loginTab", isDisabled());
 
         clickOn("#deviceIdText").write("Dev" + id);
         clickOn("#deviceNameText").write("Name" + id);
@@ -71,7 +75,7 @@ public class HandScannerTestTestFX extends ApplicationTest {
         } catch (AssertionError e) {
         }
         assertNotNull("Device not baptised, fingerprint is null", fingerprint);
-        verifyThat("#userLoginText", isVisible());
+        verifyThat("#userLoginText", isInvisible());
         clickOn("#userLoginText").write("Usr" + id);
         clickOn("#userPasswordText").write("password");
 
@@ -84,25 +88,10 @@ public class HandScannerTestTestFX extends ApplicationTest {
         clickOn("#loginButton");
     }
 
-    @Test
+    //@Test
     public void shouldClickButton() {
         clickOn("#modeButton");
         //        clickOn("#exitButton");
     }
 
-    /*
-    private static class TabMatchers {
-        @Factory
-        @Unstable(reason = "is missing apidocs")
-        public static Matcher<Tab> isSelected() {
-            return baseMatcher("Tab is selected", tab -> tab.isSelected());
-        }
-
-        @Factory
-        @Unstable(reason = "is missing apidocs")
-        public static Matcher<Tab> isUnselected() {
-            return baseMatcher("Tab is selected", tab -> !tab.isSelected());
-        }
-    }
-    */
 }

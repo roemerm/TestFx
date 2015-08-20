@@ -3,6 +3,7 @@ package eu.unibox.handheld.testfx;
 import static org.hamcrest.core.StringContains.containsString;
 import static org.junit.Assert.assertNotNull;
 import static org.testfx.api.FxAssert.verifyThat;
+import static org.testfx.matcher.base.NodeMatchers.isInvisible;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
@@ -21,7 +22,7 @@ import eu.unibox.handheld.MainFx;
 public class HandScannerTestTestFX extends ApplicationTest {
     private Stage stage;
     private String host;
-    private final long id = System.currentTimeMillis();
+    private final long id = System.currentTimeMillis() % 1000000L;
     private String fingerprint;
 
     @Rule
@@ -40,9 +41,10 @@ public class HandScannerTestTestFX extends ApplicationTest {
     }
 
     @Test
-    public void baptiseDevice() {
+    public void CARENTBAP014_baptiseDevice() {
         clickOn("#modeButton");
         verifyThat("#deviceIdText", isVisible());
+        verifyThat("#deviceIdText", isInvisible());
 
         clickOn("#deviceIdText").write("Dev" + id);
         clickOn("#deviceNameText").write("Name" + id);
@@ -56,10 +58,10 @@ public class HandScannerTestTestFX extends ApplicationTest {
         fingerprint = fingerprint.substring(fingerprint.lastIndexOf(":") + 2);
     }
 
-    @Test
+    //@Test
     public void loginDeviceUser() {
         try {
-            baptiseDevice();
+            CARENTBAP014_baptiseDevice();
             clickOn("#modeButton");
         } catch (AssertionError e) {
         }

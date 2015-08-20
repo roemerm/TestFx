@@ -2,7 +2,6 @@
 <classpath>
 	<classpathentry including="**/*.java" kind="src" output="build/classes/test" path="src/test/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="src" path="/handheldmock"/>
 	<classpathentry kind="lib" path="libs/testfx-core-4.0.2.jar"/>
 	<classpathentry kind="lib" path="libs/testfx-junit-4.0.2.jar"/>
 	<classpathentry kind="lib" path="libs/testfx-legacy-4.0.2.jar"/>

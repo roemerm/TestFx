@@ -1,6 +1,6 @@
 defaultTasks 'test'
 
-//apply plugin: 'java'
+apply plugin: 'java'
 
 repositories {
    flatDir { dirs "libs" }
@@ -17,7 +17,6 @@ dependencies {
 }
 
 test {
-   systemProperty 'host', '10.1.1.25'
 	testLogging {
 		exceptionFormat = 'full'
 	}

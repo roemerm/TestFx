@@ -11,6 +11,11 @@ public class CaptureScreenshot extends TestWatcher {
 
     @Override
     public void failed(Throwable t, Description description) {
+        System.out.println("TC " + description + " failed");
+        System.out.println("TC " + description.getClassName() + " failed");
+        System.out.println("TC " + description.getDisplayName() + " failed");
+        System.out.println("TC " + description.getMethodName() + " failed");
+        System.out.println("TC " + description.getTestClass() + " failed");
         String path = "." + File.separator + "build" + File.separator + "screenshots";
         File capturePath = new File(path);
 
@@ -26,5 +31,10 @@ public class CaptureScreenshot extends TestWatcher {
             File target = new File(capturePath, filename);
             screenshoot.renameTo(target);
         }
+    }
+
+    @Override
+    public void succeeded(Description description) {
+        System.out.println("TC " + description + " successfull");
     }
 }
